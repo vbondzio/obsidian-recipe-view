@@ -38,7 +38,7 @@
 				.join(" ");
 		}
 
-		if (typeof value === "string" || value instanceof String) {
+		if (value !== null) {
 			const markdownContainer = createSpan();
 			MarkdownRenderer.render(
 				app,
