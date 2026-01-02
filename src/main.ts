@@ -16,6 +16,7 @@ interface RecipeViewPluginSettings {
 const DEFAULT_SETTINGS: RecipeViewPluginSettings = {
 	sideColumnRegex: 'Ingredients|Nutrition',
 	treatH1AsFilename: false,
+	useImageProperty: false,
 	renderUnicodeFractions: true,
 	singleColumnMaxWidth: 600,
 	showBulletsTwoColumn: false,
