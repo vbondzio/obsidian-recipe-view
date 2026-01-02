@@ -68,7 +68,12 @@ export class RecipeView extends EditableFileView {
         if (!this.file) { return false }
         const text = await this.app.vault.cachedRead(this.file!);
         const metadata = await this.app.metadataCache.getFileCache(this.file!);
+        const frontmatter = metadata?.frontmatter;
+        const image = frontmatter?.["image"];
         const parsedRecipe = parseRecipeMarkdown(this.plugin, text, this.file!.path, this);
+        if (this.plugin.settings.useImageProperty && image) {
+            parsedRecipe.thumbnailPath = image; // Set thumbnail path from frontmatter image property
+        }
         this.content = new RecipeCard({
             target: this.contentEl,
             props: {

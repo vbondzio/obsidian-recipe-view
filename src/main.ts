@@ -7,6 +7,7 @@ import { WHISK_SVG } from './whisk';
 interface RecipeViewPluginSettings {
 	sideColumnRegex: string;
 	treatH1AsFilename: boolean;
+	useImageProperty: boolean;
 	renderUnicodeFractions: boolean;
 	singleColumnMaxWidth: number;
 	showBulletsTwoColumn: boolean;
@@ -133,6 +134,14 @@ class RecipeViewSettingsTab extends PluginSettingTab {
 					this.plugin.settings!.treatH1AsFilename = value;
 					await this.plugin.saveSettings();
 				}));
+
+		new Setting(containerEl)
+			.setName("Use image property")
+			.setDesc('If turned on, then uses the image property for the recipe thumbnail instead.')
+			.addToggle((toggle) => toggle.setValue(this.plugin.settings.useImageProperty).onChange(async (value) => {
+				this.plugin.settings.useImageProperty = value;
+				await this.plugin.saveSettings();
+			}));
 
 		new Setting(containerEl)
 			.setName("Recipe card appearance")
