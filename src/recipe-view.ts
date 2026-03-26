@@ -68,7 +68,25 @@ export class RecipeView extends EditableFileView {
         if (!this.file) { return false }
         const text = await this.app.vault.cachedRead(this.file!);
         const metadata = await this.app.metadataCache.getFileCache(this.file!);
+        const frontmatter = metadata?.frontmatter;
+        const image = frontmatter?.["image"];
         const parsedRecipe = parseRecipeMarkdown(this.plugin, text, this.file!.path, this);
+        if (this.plugin.settings.useImageProperty && image) {
+            const link = import_obsidian4.LinkValue.parseFromString(this.app, image, this.file.path);
+            if (link) {
+                // wiki link - match only the [[file name]] portion
+                const match = image.match(/^\[\[([^|\]]+?)(?:\|[^#\]]+?)?(?:#[^]]+)?(?:\^[^]]+)?\]\]$/);
+                if (match) {
+                const imageFile = this.app.metadataCache.getFirstLinkpathDest(match[1], this.file.path);
+                    if (imageFile) {
+                        parsedRecipe.thumbnailPath = this.app.vault.getResourcePath(imageFile);
+                    }
+                }
+            } else {
+                // external link
+                parsedRecipe.thumbnailPath = image; // Set thumbnail path from frontmatter image
+            }
+        }
         this.content = new RecipeCard({
             target: this.contentEl,
             props: {

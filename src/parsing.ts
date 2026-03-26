@@ -193,6 +193,7 @@ export function parseRecipeMarkdown(
 
         // Extract the first image as a thumbnail
         if (
+            !plugin.settings.useImageProperty && 
             item.getElementsByTagName("IMG").length > 0 &&
             currentSection == 0 &&
             !result.thumbnailPath &&
