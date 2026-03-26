@@ -1,3 +1,7 @@
+note:
+
+I'm not planning on maintaining this fork of "lachsh/obsidian-recipe-view", I'm just merging pull requests  from what seems to be, at least currently, an idle project. I do not review those pull requests in-depth nor do I test functionality beyond my own planned usage. Any issues / pull request should be done against the original project / another fork if another maintainer has been found. I skip PRs that can't be auto merged (working from oldest to newest and being a bit selective).
+
 <div align="center">
 
 <img src="docs/_static/Whisk.png" style="width:200px">
